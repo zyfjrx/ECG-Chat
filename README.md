@@ -1,4 +1,4 @@
-# ECG-Chat: A Large ECG-Language Model for Cardiac Disease Diagnosis
+# [ICME 2025] ECG-Chat: A Large ECG-Language Model for Cardiac Disease Diagnosis
 
 This is a repository for reproducing the paper **ECG-Chat: A Large ECG-Language Model for Cardiac Disease Diagnosis** [[Paper](https://arxiv.org/abs/2408.08849)] 
 
@@ -31,18 +31,22 @@ The codes for report generation evaluation and RAG are coming soon.
 
 The ECG data augmentation methods implementation comes from [torch_ecg](https://github.com/DeepPSP/torch_ecg). We also used the CKEPE prompt proposed in [MERL](https://github.com/cheliu-computation/MERL-ICML2024) to evaluate the zero-shot classification ability of our model.
 
+### Checkpoints
+You can download our trained checkpoints from the following links: [ECG-CoCa](https://drive.google.com/file/d/1wOKYfkb-Nep0WzYZz9-n66oTzp_4cky7/view?usp=sharing), [ECG-Chat](https://drive.google.com/drive/folders/1Dr7xdt_wy16-fhSCF9I4_ecrIX4wgoTz?usp=drive_link)
+
+
 ## Citation
 If you think that our work is useful to your research, please cite using this BibTeX:
 ```bibtex
-@misc{zhao2024ecgchatlargeecglanguagemodel,
-      title={ECG-Chat: A Large ECG-Language Model for Cardiac Disease Diagnosis}, 
-      author={Yubao Zhao and Tian Zhang and Xu Wang and Puyu Han and Tong Chen and Linlin Huang and Youzhu Jin and Jiaju Kang},
-      year={2024},
-      eprint={2408.08849},
-      archivePrefix={arXiv},
-      primaryClass={eess.SP},
-      url={https://arxiv.org/abs/2408.08849}, 
-}
+@inproceedings{zhao2025ecgchat,
+  author={Zhao, Yubao and Kang, Jiaju and Zhang, Tian and Han, Puyu and Chen, Tong},
+  booktitle={2025 IEEE International Conference on Multimedia and Expo (ICME)}, 
+  title={ECG-Chat: A Large ECG-Language Model for Cardiac Disease Diagnosis}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-6},
+  doi={10.1109/ICME59968.2025.11209476}}
 ```
 If you have questions about this repo, please submit an issue or contact [yubaozhao01@gmail.com](mailto:yubaozhao01@gmail.com).
 
