@@ -438,3 +438,9 @@ def get_data(args, preprocess_fns, epoch=0, tokenizer=None):
                 args, args.cpsc2018_path, preprocess_val, is_train=False, epoch=epoch, tokenizer=tokenizer)
 
     return data
+
+
+if __name__ == '__main__':
+    X, labels = load_cpsc2018("/Users/zhangyf/PycharmProjects/cfel/plus/ECG-Chat/data/CPSC2018",True)
+    print(X.shape)
+

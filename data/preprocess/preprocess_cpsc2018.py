@@ -39,7 +39,7 @@ def prepare(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-dir", type=str, default="")
+    parser.add_argument("--data-dir", type=str, default="/Users/zhangyf/PycharmProjects/cfel/plus/ECG-Chat/data/CPSC2018")
     args = parser.parse_args()
 
     prepare(args)

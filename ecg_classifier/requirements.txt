@@ -1,0 +1,17 @@
+# ECG分类模型依赖
+
+# 核心依赖
+torch>=2.0.0
+numpy>=1.21.0
+scikit-learn>=1.0.0
+tqdm>=4.62.0
+
+# 可视化
+matplotlib>=3.5.0
+
+# 数据处理
+pandas>=1.3.0
+
+# 可选: 加速
+# accelerate>=0.20.0
+# bitsandbytes>=0.39.0
