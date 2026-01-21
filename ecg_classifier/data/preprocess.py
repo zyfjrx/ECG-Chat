@@ -147,7 +147,8 @@ def parse_ecg_file(file_path, num_classes=40, seq_len=7500, normalize='zscore'):
         return {
             'ecg': ecg_data,
             'labels': labels,
-            'file_path': file_path
+            'file_path': file_path,
+            'ecg_values':ecg_values
         }
 
     except Exception as e:
@@ -272,9 +273,10 @@ def save_pkl(output_path, train_data, val_data, test_data, metadata):
 def main():
     parser = argparse.ArgumentParser(description='ECG数据预处理')
 
-    # 数据源 (二选一)
+    # 数据源 (三选一)
     parser.add_argument('--data_dirs', nargs='+', help='数据目录列表')
     parser.add_argument('--splits', type=str, help='已有的splits JSON文件')
+    parser.add_argument('--file_list', type=str, help='去重后的文件列表JSON (会自动划分)')
 
     # 输出
     parser.add_argument('--output', type=str, default='ecg_data.npz', help='输出文件路径')
@@ -320,6 +322,23 @@ def main():
         train_files = splits['train']
         val_files = splits['val']
         test_files = splits['test']
+    elif args.file_list:
+        # 从去重后的文件列表加载并自动划分
+        print(f"从文件列表加载: {args.file_list}")
+        with open(args.file_list, 'r', encoding='utf-8') as f:
+            all_files = json.load(f)
+        print(f"加载 {len(all_files)} 个去重文件")
+
+        # 划分数据集
+        from sklearn.model_selection import train_test_split
+        np.random.seed(args.seed)
+
+        train_val_files, test_files = train_test_split(
+            all_files, test_size=args.test_size, random_state=args.seed
+        )
+        train_files, val_files = train_test_split(
+            train_val_files, test_size=args.val_size/(1-args.test_size), random_state=args.seed
+        )
     elif args.data_dirs:
         # 从目录收集并划分
         print(f"从目录收集文件: {args.data_dirs}")
@@ -337,7 +356,7 @@ def main():
             train_val_files, test_size=args.val_size/(1-args.test_size), random_state=args.seed
         )
     else:
-        print("错误: 请指定 --data_dirs 或 --splits")
+        print("错误: 请指定 --data_dirs, --file_list 或 --splits")
         return
 
     print(f"训练集: {len(train_files)}, 验证集: {len(val_files)}, 测试集: {len(test_files)}")
@@ -411,3 +430,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # out1 = parse_ecg_file("/Users/zhangyf/Documents/cfel/HLW/精标数据备份（心电）/标注数据细分类/HLW_BZ_ddj_040/HLWddj5072932151.txt")
+    # out2 = parse_ecg_file("/Users/zhangyf/Documents/cfel/HLW/精标数据备份（心电）/标注数据细分类/HLW_BZ_ddj_034/HLWddj4472932151.txt")
+    # print(ecg_values)

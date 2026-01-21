@@ -57,17 +57,19 @@ def collect_files_with_labels(data_dirs, num_workers=8):
     """收集所有文件及其标签"""
 
     # 收集所有文件
-    all_files = []
-    for data_dir in data_dirs:
-        patterns = [
-            os.path.join(data_dir, "*.txt"),
-            os.path.join(data_dir, "**/*.txt"),
-        ]
-        for pattern in patterns:
-            all_files.extend(glob.glob(pattern, recursive=True))
-
-    all_files = list(set(all_files))
-    print(f"找到 {len(all_files)} 个文件")
+    # all_files = []
+    # for data_dir in data_dirs:
+    #     patterns = [
+    #         os.path.join(data_dir, "*.txt"),
+    #         os.path.join(data_dir, "**/*.txt"),
+    #     ]
+    #     for pattern in patterns:
+    #         all_files.extend(glob.glob(pattern, recursive=True))
+    #
+    # all_files = list(set(all_files))
+    with open(data_dirs[0], 'r', encoding='utf-8') as f:
+        all_files = json.load(f)
+    print(f"加载 {len(all_files)} 个去重文件")
 
     # 并行解析标签
     file_labels = {}
@@ -308,8 +310,8 @@ def main():
     parser = argparse.ArgumentParser(description='数据集分层划分')
     parser.add_argument('--data_dirs', nargs='+', required=True, help='数据目录列表')
     parser.add_argument('--output', type=str, default='data_splits.json', help='输出文件')
-    parser.add_argument('--test_size', type=float, default=0.05, help='测试集比例')
-    parser.add_argument('--val_size', type=float, default=0.05, help='验证集比例')
+    parser.add_argument('--test_size', type=float, default=0.1, help='测试集比例')
+    parser.add_argument('--val_size', type=float, default=0.1, help='验证集比例')
     parser.add_argument('--seed', type=int, default=42, help='随机种子')
     parser.add_argument('--workers', type=int, default=32, help='并行进程数')
     args = parser.parse_args()
